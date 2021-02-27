@@ -15,5 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('funcionario','FuncionarioController');
+// Route::resource('funcionario','FuncionarioController');
 
+// Route::get('/funcionario', 'FuncionarioController@index');
+
+Route::resource('funcinoario', 'FuncionarioController@index');
