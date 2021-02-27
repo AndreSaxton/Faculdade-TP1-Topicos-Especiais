@@ -15,6 +15,10 @@ class ProjetoController extends Controller
     public function index()
     {
         //
+        // busca dois usuários por vez no BD
+        $projetos = Projeto::paginate(2);
+        // Aciona View, passando a ela coleção dos projetos obtidos no BD   
+        return View('projeto.index')->with('projetos',$projetos); 
     }
 
     /**
@@ -25,6 +29,8 @@ class ProjetoController extends Controller
     public function create()
     {
         //
+        return View('projeto.create');
+
     }
 
     /**
@@ -36,6 +42,24 @@ class ProjetoController extends Controller
     public function store(Request $request)
     {
         //
+        // Valida os dados em $request
+        $this->validate($request,
+            [
+                'nome'       => 'required|max:100', // nome obrigatório e no máximo 100 caracteres
+                'orcamento'  => 'required',         // orcamento obrigatório e no máximo 100 caracteres
+                'dataInicio' => 'required'          // dataInicio obrigatório e no máximo 100 caracteres
+            ],
+            // mensagens de erro quando a validação falha.
+            [
+                'nome.*' => 'Nome é obrigatório de tamanho máximo de 100 caracteres',
+                'orcamento.required' => 'Orçamento é obrigatório',
+                'dataInicio.required' => 'Data de Início é obrigatório'
+            ]
+        );
+        // Cria projeto no BD
+        Projeto::create($request->all());
+        // Redireciona para view que lista os projetos cadastrados
+        return redirect('/projeto');
     }
 
     /**
@@ -44,9 +68,10 @@ class ProjetoController extends Controller
      * @param  \App\Projeto  $projeto
      * @return \Illuminate\Http\Response
      */
-    public function show(Projeto $projeto)
+    public function show($id)
     {
         //
+        return View('projeto.show')->with('projeto',Projeto::find($id));
     }
 
     /**
@@ -55,9 +80,10 @@ class ProjetoController extends Controller
      * @param  \App\Projeto  $projeto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Projeto $projeto)
+    public function edit($id)
     {
         //
+        return View('projeto.edit')->with('projeto',Projeto::find($id));   
     }
 
     /**
@@ -67,9 +93,24 @@ class ProjetoController extends Controller
      * @param  \App\Projeto  $projeto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Projeto $projeto)
+    public function update(Request $request, $id)
     {
         //
+        $this->validate($request,
+            [
+                'nome'       => 'required|max:100', // nome obrigatório e no máximo 100 caracteres
+                'orcamento'  => 'required',         // orcamento obrigatório e no máximo 100 caracteres
+                'dataInicio' => 'required'          // dataInicio obrigatório e no máximo 100 caracteres
+            ],
+            [
+                'nome.*' => 'Nome é obrigatório de tamanho máximo de 100 caracteres',
+                'orcamento.required' => 'Orçamento é obrigatório',
+                'dataInicio.required' => 'Data de Início é obrigatório',
+            ]
+        );
+        $projeto = Projeto::find($id);  // recupera projeto do BD
+        $projeto->update($request->all());  // atualiza (grava) novos dados do projeto
+        return redirect('/projeto');
     }
 
     /**
@@ -78,8 +119,10 @@ class ProjetoController extends Controller
      * @param  \App\Projeto  $projeto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Projeto $projeto)
+    public function destroy($id)
     {
         //
+        Projeto::destroy($id);
+        return redirect('/projeto');
     }
 }

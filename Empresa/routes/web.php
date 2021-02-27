@@ -15,8 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::resource('funcionario','FuncionarioController');
+Route::resource('funcionario','FuncionarioController');
 
-// Route::get('/funcionario', 'FuncionarioController@index');
+Route::get('/funcionario', 'FuncionarioController@index');
 
-Route::resource('funcinoario', 'FuncionarioController@index');
+// Route::resource('funcionario', 'FuncionarioController@index');
+
+Route::resource('projeto', 'ProjetoController');
+Route::get('/projeto', 'ProjetoController@index');
