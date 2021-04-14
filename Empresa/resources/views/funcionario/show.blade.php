@@ -8,9 +8,19 @@
 				<dl>
 					<dt>Nome</dt>
 					<dd>{{$funcionario->nome}}</dd>
+					<dt>Data de Nascimento</dt>
+					<dd>{{$funcionario->data_nascimento}}</dd>
 					<dt>Endereço</dt>
 					<dd>{{$funcionario->endereco}}</dd>
+					<dt>Departamento</dt>
+					<dd>{{$funcionario->departamento_id}}</dd>
 				</dl>
+
+				<h3>Documento</h3>
+				@foreach($documentos as $d)
+					<p><a href="/obterDocumento?nome={{$d->nomeArmazenamento}}" target="_blank">
+					{{$d->nomeOriginal}}</a></p>
+				@endforeach
 				<form action="/funcionario/{{$funcionario->id}}" method="post" onsubmit="return confirm('Confirma exclusão?')">
 					@csrf
 					@method('DELETE')

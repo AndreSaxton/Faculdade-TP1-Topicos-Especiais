@@ -8,6 +8,8 @@
 				<dl>
 					<dt>Nome</dt>
 					<dd>{{$projeto->nome}}</dd>
+					<dt>Gerente</dt>
+					<dd>{{$projeto->funcionario_id}}</dd>
 					<dt>Orçamento</dt>
 					<dd>{{$projeto->orcamento}}</dd>
           <dt>Data de Inicio</dt>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Projeto;
+use App\Funcionario;  // referencia o model Funcio´nario
+
 use Illuminate\Http\Request;
 
 class ProjetoController extends Controller
@@ -29,7 +31,9 @@ class ProjetoController extends Controller
     public function create()
     {
         //
-        return View('projeto.create');
+        // return View('projeto.create');
+        return View('projeto.create')->with('cFuncionarios', Funcionario::all());
+
 
     }
 
@@ -60,6 +64,7 @@ class ProjetoController extends Controller
         Projeto::create($request->all());
         // Redireciona para view que lista os projetos cadastrados
         return redirect('/projeto');
+        
     }
 
     /**
@@ -83,7 +88,9 @@ class ProjetoController extends Controller
     public function edit($id)
     {
         //
-        return View('projeto.edit')->with('projeto',Projeto::find($id));   
+        return View('projeto.edit')->with('projeto',Projeto::find($id))->with('cFuncionarios', Funcionario::all());   
+        // return View('projeto.create')->with('cFuncionarios', Funcionario::all());
+
     }
 
     /**

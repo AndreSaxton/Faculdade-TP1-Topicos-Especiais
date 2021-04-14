@@ -6,6 +6,7 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<form action="/projeto/{{$projeto->id}}" method="post">
+
 					@csrf  <!-- token de segurança -->
 					@method('PUT') <!-- para acionar a função update do controller -->
 					<div class="form-group">
@@ -14,6 +15,14 @@
 						@if($errors->has('nome'))
 						<p class="text-danger">{{$errors->first('nome')}}</p>
 						@endif	
+					</div>
+					<div>
+						<label for="funcionario_id">Gerente</label>
+						<select name='funcionario_id' id='funcionario_id'>
+							@foreach($cFuncionarios as $d)
+								<option value="{{$d->id}}">{{$d->nome}}</option>
+							@endforeach
+						</select>
 					</div>
 					<div>
 						<label for="orcamento">Orçamento</label>
@@ -31,6 +40,7 @@
 					</div>
 		    		<input type="submit" value="Alterar" class="btn btn-primary btn-sm"/>
 		    		<a href="/projeto" class="btn btn-primary btn-sm">Voltar</a>
+
 				</form>
 			</div>
 		</div>

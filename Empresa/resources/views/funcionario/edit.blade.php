@@ -22,6 +22,23 @@
 						<p class="text-danger">{{$errors->first('endereco')}}</p>
 						@endif
 					</div>
+
+					<div>
+						<label for="data_nascimento">Data de Nacimento</label>
+						<input type="text" name="data_nascimento" id="data_nascimento" class="form-control" value="{{empty(old('data_nascimento')) ? $funcionario->data_nascimento : old('data_nascimento')}}"/>
+						@if($errors->has('data_nascimento'))
+						<p class="text-danger">{{$errors->first('data_nascimento')}}</p>
+						@endif
+					</div>
+
+					<div>
+						<label for="departamento_id">Departamento</label>
+						<input type="text" name="departamento_id" id="departamento_id" class="form-control" value="{{empty(old('departamento_id')) ? $funcionario->departamento_id : old('departamento_id')}}"/>
+						@if($errors->has('departamento_id'))
+						<p class="text-danger">{{$errors->first('departamento_id')}}</p>
+						@endif
+					</div>
+
 		    		<input type="submit" value="Alterar" class="btn btn-primary btn-sm"/>
 		    		<a href="/funcionario" class="btn btn-primary btn-sm">Voltar</a>
 				</form>
